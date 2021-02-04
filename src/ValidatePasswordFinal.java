@@ -14,7 +14,16 @@
    I am much less familiar with regex and am uncertain as to how to increase the required cspecial characters from 1 to 3.
    Drafts of all iterations are being created offline so that only complete iterations are uploaded to the GitHub repository.
    
-   
+   Running Requirements:
+   All source code is self-contained within the one file.
+   Classes used: 
+    - ValidatePasswordFinal (source contained)
+    - Scanner (imported within source code - standard library generally preinstalled)
+    
+    Running the Code:
+    When running the source file user will be prompted to enter password, result will be returned and code will reinitialize for additional tests.
+    All iteration tests have completed as expected.
+    
    Author: Brandt H
 */
 
