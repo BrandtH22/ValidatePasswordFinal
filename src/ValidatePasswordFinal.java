@@ -1,4 +1,9 @@
 /*
+ 
+ 	Change Notes: 
+ 	Iteration 2 requires that invalid passwords return reasoning for being invalid, 
+ 	to achieve this the results listings within each validation have been updated.
+ 
    This program uses a public class ValidatePasswordFinal to get user input via the
    scanner class. The ValidatePasswordDraft calls the validatePass method that checks to see if the entered
    password is valid. The requirements for a valid password are as follows:
@@ -13,6 +18,8 @@
    The scanner class is being used rather than the regex due to the requirement of iteration 4 (multiple special characters).
    I am much less familiar with regex and am uncertain as to how to increase the required cspecial characters from 1 to 3.
    Drafts of all iterations are being created offline so that only complete iterations are uploaded to the GitHub repository.
+   It is assumed that only noted characters are valid for the password 
+   (i.e. iterations 1 and 2 cannot contain special characters and no iterations can contain spaces).
    
    Running Requirements:
    All source code is self-contained within the one file.
@@ -23,7 +30,7 @@
     Running the Code:
     When running the source file user will be prompted to enter password, result will be returned and code will reinitialize for additional tests.
     All iteration tests have completed as expected.
-    
+        
    Author: Brandt H
 */
 
@@ -48,7 +55,7 @@ public class ValidatePasswordFinal {
 
 	public static String validatePass (String Password) {
 
-		String result = "Password is accepted";			// Sets the initial result as valid
+		String result = " ";			// Sets the initial result as valid
 		int length = 0;						// Variable to count the number characters in the password
 		int numCount = 0;					// Variable to count numbers in the password
 		int letterCount = 0;					// Variable to count capital letters in the password
@@ -62,7 +69,7 @@ public class ValidatePasswordFinal {
 				(Password.charAt(x) >= 97 && Password.charAt(x) <= 122)) {
 					//Keep the Password
 				} else {
-					result = "Password is not accepted";		//Checks that password contains only letters and numbers
+					result = "Password contains invalid character";		//Checks that password contains only letters and numbers
 				}
 
 			if ((Password.charAt(x) >= 47 && Password.charAt(x) <= 58)) {			// Counts the number of numbers
@@ -78,16 +85,25 @@ public class ValidatePasswordFinal {
 		} // Ends the for loop
 
 		if (numCount < minNum){									// Validates quantity of numbers in password
-			result = "Password is not accepted";
-		}
+			result = result + " Password does not include a number";
+		} else {
+				result = result + " Password contains a number";
+			}
+		
 
 		if (letterCount < minLetter) {									// Validates quantity of letters in password
-			result = "Password is not accepted";
-		}
+			result = result + " Password does not contain a letter";
+		} else {
+				result = result + " Password contains a letter";
+			}
+		
 
 		if (length < minLength){									// Validates quantity of characters password
-			result = "Password is not accepted";
-		}
+			result = result + " Password does not meet length requirement";
+		} else {
+				result = result + " Password meets length requirements";
+			}
+		
 
 			return (result);								// Returns the value of "result"
 
