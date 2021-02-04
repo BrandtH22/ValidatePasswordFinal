@@ -1,6 +1,10 @@
 /*
  
  	Change Notes:
+ 	Iteration 4 changes the below password requirements:
+ 	Normal users passwords must be 10 characters
+ 	Admin users passwords must contain 3 valid special characters
+ 	
  	Iteration 3 requires that the account type first be validated (normal vs admin), 
  	the password requirements be based on the account type, and the changes for iteration 2
  	are retained. Added additional if statements for validating special characters.
@@ -15,7 +19,7 @@
    password is valid. The requirements for a valid password are as follows:
    
    		Normal Users Passwords
-   		1) Password must be at least 8 characters long.
+   		1) Password must be at least 10 characters long.
    		2) Password must contain one letter
    		3) Password must contain one number
    		
@@ -23,7 +27,7 @@
    		1) Password must be at least 13 characters long.
    		2) Password must contain one letter
    		3) Password must contain one number
-   		4) Password must contain one special character
+   		4) Password must contain 3 valid special characters
 
    If the password is valid the result will display "The password is accepted." If not the result will
    display an appropriate error message.
@@ -35,6 +39,16 @@
    It is assumed that only noted characters are valid for the password 
    (i.e. iterations 1 and 2 cannot contain special characters and no iterations can contain spaces).
    Iteration 3 assumed to need validation of user type entry.
+   
+   FINAL NOTES:
+   This tool can be improved in the following ways: Instead of creating nested ifs for the result, 
+   these could instead be run by case statements allowing for cleaner code as well as easier updates;
+   instead of having seperate if statements for the admin vs normal user requirements, variables could
+   be populated from the initial user type validation if statement allowing for cleaner code and easier updates;
+   regex could be used for validation instead of if statements allowing for cleaner code and easier updates (see previous notes
+   section for reasoning to not use regex); this tool would be more useful as a webform or other integrated format but this 
+   was not a requirement for this activity.
+   
    
    Running Requirements:
    All source code is self-contained within the one file.
@@ -64,19 +78,19 @@ public class ValidatePasswordFinal {
 		
 		
 
-		if(inputUserType.equals("Admin") || inputUserType.equals("admin")){
+		if(inputUserType.equals("Admin") || inputUserType.equals("admin")){			// Validates user type
 		System.out.print("Enter Your Password: ");						// Prompt for entry
 		inputPassword = input.next();						// Read user input
 		System.out.println(validatePassAdmin(inputPassword));				// Calls the PassCheck Method on the password entered by the user and prints result to screen
 		System.out.println("");
-		} else if (inputUserType.equals("Normal") || inputUserType.equals("normal")) {
+		} else if (inputUserType.equals("Normal") || inputUserType.equals("normal")) {		// Validates user type
 		
 		System.out.print("Enter Your Password: ");						// Prompt for entry
 		inputPassword = input.next();						// Read user input
 		System.out.println(validatePassNormal(inputPassword));				// Calls the PassCheck Method on the password entered by the user and prints result to screen
 		System.out.println("");
 		} else {
-			System.out.println("User type is invalid");
+			System.out.println("User type is invalid");					// Invalidates user type
 		}
 		
 		
@@ -89,11 +103,11 @@ public class ValidatePasswordFinal {
 		int length = 0;						// Variable to count the number characters in the password
 		int numCount = 0;					// Variable to count numbers in the password
 		int letterCount = 0;				// Variable to count capital letters in the password
-		int charCount = 0;					//Variable to count special characters
+		int charCount = 0;					// Variable to count special characters
 		int minLength = 13;					// Variable to define minimum character length
 		int minNum = 1;						// Variable to define minimum numbers in password
 		int minLetter = 1;					// Variable to define minimum capital letters in password
-		int minChar = 1;					//Variable to define minimum special characters
+		int minChar = 3;					// Variable to define minimum special characters
 
 
 		for (int x =0; x < Password.length(); x++) {
@@ -106,7 +120,7 @@ public class ValidatePasswordFinal {
 					result = "Password contains invalid character";		//Checks that password contains only letters and numbers
 				}
 
-			if (Password.contains("@") || Password.contains("#") || 
+			if (Password.contains("@") || Password.contains("#") || 				// Counts the number of special characters
 					Password.contains("!") || Password.contains("$") || Password.contains("%") || 
 					Password.contains("^") || Password.contains("&") || Password.contains("*")) {
 				charCount ++;
@@ -138,14 +152,14 @@ public class ValidatePasswordFinal {
 			}
 		
 
-		if (length < minLength){									// Validates quantity of characters password
+		if (length < minLength){									// Validates quantity of characters in password
 			result = result + " Password does not meet length requirement";
 		} else {
 				result = result + " Password meets length requirements";
 			}
 		
-		if (charCount < minChar){									// Validates quantity of characters password
-			result = result + " Password does not contain a valid special character";
+		if (charCount < minChar){									// Validates quantity of special characters in password
+			result = result + " Password does not contain at least 3 valid special character";
 		} else {
 				result = result + " Password contains a valid special character";
 			}
@@ -164,7 +178,7 @@ public class ValidatePasswordFinal {
 		int length = 0;						// Variable to count the number characters in the password
 		int numCount = 0;					// Variable to count numbers in the password
 		int letterCount = 0;					// Variable to count capital letters in the password
-		int minLength = 8;					// Variable to define minimum character length
+		int minLength = 10;					// Variable to define minimum character length
 		int minNum = 1;						// Variable to define minimum numbers in password
 		int minLetter = 1;						// Variable to define minimum capital letters in password
 
